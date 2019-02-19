@@ -20,29 +20,31 @@ var guessesText = document.getElementById("guesses");
 
 var computerChoices = "abcdefghijklmnopqrstuvwxyz".split("");
 
+// for (var i = 1; i >= guessesLeft; ) {
 
 
 document.onkeyup = function (event) {
 
-    
+
     var userGuess = event.key;
 
     var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
-    if ((userGuess) === (computerGuess)){
-        wins++; guessesLeft--; guesses++}
-    else {losses++; guessesLeft--; guesses++}
+    if ((guessesLeft) > (0)) {
+        if ((userGuess) === (computerGuess)) {
+            wins++; guessesLeft--; guesses++
+        }
+        else { losses++; guessesLeft--; guesses++; }
+    }
+    else {wins = 0; losses = 0; guessesLeft = 10; guesses = 0 }
 
-    
-    
 
 
     winsText.textContent = wins;
     lossesText.textContent = losses;
     guessesLeftText.textContent = guessesLeft;
     guessesText.textContent = guesses;
-    }
-
+}
 
 
 
