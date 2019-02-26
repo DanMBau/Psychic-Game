@@ -2,7 +2,7 @@
 var wins = 0
 var losses = 0
 var guessesLeft = 10
-var guesses = 0
+var guesses = [];
 
 // links variables to html IDs
 var winsText = document.getElementById("wins");
@@ -12,25 +12,34 @@ var guessesText = document.getElementById("guesses");
 
 //alphabet 
 var computerChoices = "abcdefghijklmnopqrstuvwxyz".split("");
+console.log("comp choices"+computerChoices);
 
 //after user releases key function starts
 document.onkeyup = function (event) {
     var userGuess = event.key;
     var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    guesses.push(userGuess);
+    console.log("compu guess: "+computerGuess+ " user guess: "+userGuess);
 
     // function runs until user runs out of "guessesLeft", evertime the user guesses the right letter "guessesLeft" goes back up to 10
-    if ((guessesLeft) > (0)) {
-        if ((userGuess) === (computerGuess)) {
-            wins++; guessesLeft--; guesses++; guessesLeft = 10
+        if (userGuess == computerGuess) {
+            wins++; 
+            console.log("Wins: "+wins);
+            winsText.textContent = wins;
+            guessesLeft = 10;
+            guesses = [];
+            guessesLeftText.textContent = guessesLeft;
         }
-        else { losses++; guessesLeft--; guesses++; }
+        else {
+            guessesLeft--; 
+            if(guessesLeft === 0){
+                losses++;
+                guessesLeft = 10; 
+                guesses = [];
+                lossesText.textContent = losses;
+                guessesText.textContent = guesses;
+            }
+            guessesLeftText.textContent = guessesLeft;
+            document.getElementById('guesses').innerHTML = guesses;
+        }
     }
-    else { wins = 0; losses = 0; guessesLeft = 10; guesses = 0 }
-
-
-    // insert values into html
-    winsText.textContent = wins;
-    lossesText.textContent = losses;
-    guessesLeftText.textContent = guessesLeft;
-    guessesText.textContent = guesses;
-}
